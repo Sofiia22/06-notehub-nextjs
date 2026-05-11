@@ -23,10 +23,15 @@ export interface CreateNoteData {
   tag: NoteTag;
 }
 
-export const fetchNotes = async (search = ""): Promise<NotesResponse> => {
+export const fetchNotes = async (
+  search = "",
+  page = 1,
+): Promise<NotesResponse> => {
   const response = await instance.get<NotesResponse>("/notes", {
     params: {
       search,
+      page,
+      perPage: 12,
     },
   });
 
