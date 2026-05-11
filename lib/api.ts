@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import type { NoteTag } from "@/types/note";
 const BASE_URL = "https://notehub-public.goit.study/api";
 
 const token = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
@@ -24,5 +24,20 @@ export const fetchNotes = async (search = "") => {
 // 🔹 отримати одну нотатку
 export const fetchNoteById = async (id: string) => {
   const response = await instance.get(`/notes/${id}`);
+  return response.data;
+};
+export interface CreateNoteData {
+  title: string;
+  content: string;
+  tag: NoteTag;
+}
+
+export const createNote = async (noteData: CreateNoteData) => {
+  const response = await instance.post("/notes", noteData);
+  return response.data;
+};
+
+export const deleteNote = async (id: string) => {
+  const response = await instance.delete(`/notes/${id}`);
   return response.data;
 };
